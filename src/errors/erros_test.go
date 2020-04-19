@@ -1,4 +1,4 @@
-package main_test
+package errors_test
 
 import (
 	"os"

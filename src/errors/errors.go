@@ -1,4 +1,4 @@
-package main
+package errors
 
 type EitherError string
 
