@@ -11,19 +11,18 @@ type TTOptionsData struct {
 }
 
 func CreateTTOptionsData() []TTOptionsData {
-	option := Monads.Optional{}
 	return []TTOptionsData{
 		{
 			Name:    "some string",
-			Data:    option.Some("this is not empty"),
+			Data:    Monads.Option("this is not empty"),
 			IsEmpty: false,
 		}, {
 			Name:    "some number",
-			Data:    option.Some(1.32345),
+			Data:    Monads.Option(1.32345),
 			IsEmpty: false,
 		}, {
 			Name: "some struct",
-			Data: option.Some(
+			Data: Monads.Option(
 				struct {
 					Name string
 					Age  uint16
@@ -31,11 +30,11 @@ func CreateTTOptionsData() []TTOptionsData {
 			IsEmpty: false,
 		}, {
 			Name:    "some primitive slice",
-			Data:    option.Some([]uint8{1, 2, 3, 4, 5}),
+			Data:    Monads.Option([]uint8{1, 2, 3, 4, 5}),
 			IsEmpty: false,
 		}, {
 			Name: "some slice of struct",
-			Data: option.Some([]struct {
+			Data: Monads.Option([]struct {
 				name string
 				age  uint8
 			}{

@@ -8,13 +8,6 @@ type Optional struct {
 type SomeValue Optional
 type NoneValue Optional
 
-type None interface {
-	None() Optional
-}
-type Some interface {
-	Some(value interface{}) Optional
-}
-
 type HasValue interface {
 	HasValue() bool
 }
@@ -30,19 +23,19 @@ type GetValue interface {
 func Option(value interface{}) Optional {
 	switch value.(type) {
 	case nil:
-		return Optional{value: NoneValue{value: "empty"}}
+		return None()
 	default:
-		return Optional{value: SomeValue{value}}
+		return Some(value)
 	}
 }
 
-// Some is a factory method that create SomeValue type that encapsulates the value
-func (o Optional) Some(value interface{}) Optional {
-	return Optional{value: SomeValue{value: value}}
+// Some Factory to create Some type
+func Some(value interface{}) Optional {
+	return Optional{value: SomeValue{value}}
 }
 
-// None is a factory that makes NoneValue type
-func (o *Optional) None() Optional {
+// None Factory to create None type
+func None() Optional {
 	return Optional{value: NoneValue{"empty"}}
 }
 
@@ -64,7 +57,7 @@ func (o *Optional) GetValue() interface{} {
 	case NoneValue:
 		return inner.GetValue()
 	default:
-		return NoneValue{"empty"}
+		return None()
 	}
 }
 

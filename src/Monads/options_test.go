@@ -30,9 +30,8 @@ func Test_OptionsCreation(t *testing.T) {
 
 func TestOptional_GetValue(t *testing.T) {
 	t.Parallel()
-	option := Monads.Optional{}
 	t.Run("check NoneType", func(t *testing.T) {
-		none := option.None()
+		none := Monads.None()
 		if none.HasValue() {
 			t.Errorf("expected None Value, got %v", none.GetValue())
 		}
@@ -43,7 +42,7 @@ func TestOptional_GetValue(t *testing.T) {
 		}
 	})
 	t.Run("check SomeType", func(t *testing.T) {
-		some := option.Some("some data")
+		some := Monads.Some("some data")
 		if !some.HasValue() {
 			t.Errorf("expected None Value, got %v", some.GetValue())
 		}
