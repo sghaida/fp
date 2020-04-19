@@ -22,6 +22,10 @@ func Lift(data interface{}) Type {
 // panic if map function input and output dont have the same type
 // panic if slice type and f input type is not the same type
 func (t *Type) Apply(f interface{}) Type {
+	// just in case the content of the slice is string,
+	if s, ok := t.slice.([]string); ok {
+		return t.applyString(s, f)
+	}
 	// make sure that this is a function
 	v := reflect.ValueOf(f)
 	// check if d is a function to start with
@@ -60,6 +64,17 @@ func (t *Type) Apply(f interface{}) Type {
 
 func (t *Type) Get() interface{} {
 	return t.slice
+}
+
+func (t *Type) applyString(s []string, f interface{}) Type {
+	if fn, ok := f.(func(string) string); ok {
+		newSlice := make([]string, len(s))
+		for i, st := range s {
+			newSlice[i] = fn(st)
+		}
+		return Type{slice: newSlice}
+	}
+	panic("function signature is not supported")
 }
 
 func checkFuncKind(v reflect.Value) {
