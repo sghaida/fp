@@ -1,7 +1,8 @@
 package Monads
 
+type value interface{}
 type Optional struct {
-	value interface{}
+	value
 }
 
 type SomeValue Optional
@@ -10,7 +11,6 @@ type NoneValue Optional
 type None interface {
 	None() Optional
 }
-
 type Some interface {
 	Some(value interface{}) Optional
 }
