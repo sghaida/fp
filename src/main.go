@@ -27,4 +27,14 @@ func main() {
 	res1 := lifted.Apply(makeFloat)
 	fmt.Println(res1)
 
+	name := apply.Lift("saddam")
+	checkName := func(s string) bool {
+		if s == "saddam" {
+			return true
+		}
+		return false
+	}
+	res2 := name.Apply(checkName)
+	fmt.Println(res2.Get())
+
 }
