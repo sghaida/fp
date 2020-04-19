@@ -22,4 +22,9 @@ func main() {
 	res := liftedStrs.Apply(cap)
 	fmt.Println(lst)
 	fmt.Println(res.Get())
+	// map to different type
+	makeFloat := func(in int) float64 { return float64(in) * 1.5 }
+	res1 := lifted.Apply(makeFloat)
+	fmt.Println(res1)
+
 }

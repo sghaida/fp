@@ -60,13 +60,7 @@ func (t *Type) applyGeneric(tp reflect.Type, fv reflect.Value) Type {
 	// get th inbound param type
 	inV := tp.In(0)
 	inKind := inV.Kind()
-	// get outbound param type
-	outV := tp.Out(0)
-	outKind := outV.Kind()
-	// check types for input and output
-	if inKind != outKind {
-		panic("function input type != output type")
-	}
+
 	if reflect.TypeOf(t.slice).Elem().Kind() != inKind {
 		panic("slice type != map function input type")
 	}
