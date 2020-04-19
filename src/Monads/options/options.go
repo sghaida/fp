@@ -1,4 +1,4 @@
-package Monads
+package options
 
 type value interface{}
 type Optional struct {
@@ -13,7 +13,7 @@ type HasValue interface {
 }
 
 type GetValue interface {
-	GetValue() interface{}
+	Get() interface{}
 }
 
 // Option factory method that accepts any type or nil
@@ -50,10 +50,10 @@ func (o *Optional) HasValue() bool {
 }
 
 // getValue get the encapsulated value of the option
-func (o *Optional) GetValue() interface{} {
+func (o *Optional) Get() interface{} {
 	switch inner := o.value.(type) {
 	case SomeValue:
-		return inner.GetValue()
+		return inner.Get()
 	case NoneValue:
 		return inner.GetValue()
 	default:
@@ -62,7 +62,7 @@ func (o *Optional) GetValue() interface{} {
 }
 
 // getValue get the encapsulated value of the option
-func (o *SomeValue) GetValue() interface{} {
+func (o *SomeValue) Get() interface{} {
 	return o.value
 }
 
