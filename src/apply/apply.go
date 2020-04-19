@@ -43,6 +43,7 @@ func (t *Type) Get() interface{} {
 	return t.slice
 }
 
+// applyString deals with the map for strings
 func (t *Type) applyString(s []string, f interface{}) Type {
 	if fn, ok := f.(func(string) string); ok {
 		newSlice := make([]string, len(s))
@@ -54,6 +55,7 @@ func (t *Type) applyString(s []string, f interface{}) Type {
 	panic("function signature is not supported")
 }
 
+// applyGeneric encapsulates the logic for the map func for all types other than string
 func (t *Type) applyGeneric(tp reflect.Type, fv reflect.Value) Type {
 	// get th inbound param type
 	inV := tp.In(0)
