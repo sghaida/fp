@@ -1,5 +1,7 @@
 # Functional Go collections
+[![CircleCI](https://circleci.com/gh/sghaida/fp.svg?style=svg)](https://circleci.com/gh/sghaida/fp)
 ![](coverage_badge.png)
+
 
 this is my experiment to bridge the gap between Functional Programing languages (FP) and Go as it seems a good candidate for FP at the first glance so lets see how far this goes
 
