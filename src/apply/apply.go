@@ -24,10 +24,9 @@ func Lift(data interface{}) Type {
 func (t *Type) Apply(f interface{}) Type {
 	// make sure that this is a function
 	v := reflect.ValueOf(f)
-	if v.Kind() != reflect.Func {
-		panic("f should be a function")
-	}
-	// check the underlying type of the slice
+	// check if d is a function to start with
+	checkFuncKind(v)
+	// check input | output of the func
 	fType := v.Type()
 	// check function take one parameter of type t and return one out put of the same type
 	if fType.NumOut() != 1 || fType.NumIn() != 1 {
@@ -50,9 +49,10 @@ func (t *Type) Apply(f interface{}) Type {
 	origSlice := reflect.ValueOf(t.slice)
 	newSlice := make([]interface{}, origSlice.Len())
 	// apply the method then append the item to the new slice
+	var in [1]reflect.Value
 	for i := 0; i < origSlice.Len(); i++ {
-		value := origSlice.Index(i)
-		newSlice[i] = v.Call([]reflect.Value{value})[0].Interface()
+		in[0] = origSlice.Index(i)
+		newSlice[i] = v.Call(in[:])[0].Interface()
 	}
 	// return new mapped results
 	return Type{slice: newSlice}
@@ -60,4 +60,10 @@ func (t *Type) Apply(f interface{}) Type {
 
 func (t *Type) Get() interface{} {
 	return t.slice
+}
+
+func checkFuncKind(v reflect.Value) {
+	if v.Kind() != reflect.Func {
+		panic("f should be a function")
+	}
 }
