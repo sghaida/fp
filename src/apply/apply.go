@@ -10,16 +10,10 @@ type Type struct {
 
 // Lift Factory method to encapsulate the type within Type
 func Lift(data interface{}) Type {
-	// check if this is a d
-	// s := reflect.ValueOf(data)
-	/*if s.Kind() != reflect.Slice {
-		panic("InterfaceSlice() given a non-d type")
-	}*/
 	return Type{d: data}
 }
 
 // Map
-// panic if map function input and output dont have the same type
 // panic if d type and f input type is not the same type
 func (t *Type) Apply(f interface{}) Type {
 	// just in case the content of the d is string,
@@ -71,13 +65,6 @@ func (t *Type) applyGeneric(fv reflect.Value) Type {
 
 // applySlice encapsulates the logic for the map func for all slices
 func (t *Type) applySlice(fv reflect.Value) Type {
-	// get th inbound param type
-	/*inV := tp.In(0)
-	inKind := inV.Kind()*/
-
-	/*if t.getInnerType() != inKind {
-		panic("d type != map function input type")
-	}*/
 	// create empty d based on the original d
 	origSlice := reflect.ValueOf(t.d)
 	newSlice := make([]interface{}, origSlice.Len())
