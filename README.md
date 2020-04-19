@@ -23,5 +23,5 @@ this is my experiment to bridge the gap between Functional Programing languages 
 ### Options
 you can check [Options Test Data](./src/testdata/options.go) and [Options Test](src/options/options_test.go)
 ### Either
-you can check [Either Test Data](./src/testdata/either.go) and [Either Test](src/Either/either_test.go)
+you can check [Either Test Data](./src/testdata/either.go) and [Either Test](src/either/either_test.go)
 ### Map

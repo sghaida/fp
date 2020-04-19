@@ -3,18 +3,18 @@ package helpers_testData
 import (
 	"errors"
 
-	"github.com/sghaida/fp/src/Either"
+	"github.com/sghaida/fp/src/either"
 )
 
 type EitherDataTT struct {
 	Name     string
-	Data     Either.Type
+	Data     either.Type
 	HasError bool
 }
 
 func CreateEitherDataTT() []EitherDataTT {
-	either := Either.Either()
-	emptyRight, _ := either.Right(nil)
+	e := either.Either()
+	emptyRight, _ := e.Right(nil)
 	data := []EitherDataTT{
 		{
 			Name:     "nil right should pass",
@@ -22,15 +22,15 @@ func CreateEitherDataTT() []EitherDataTT {
 			HasError: false,
 		}, {
 			Name:     "right string should pass",
-			Data:     Either.Right("this is not empty"),
+			Data:     either.Right("this is not empty"),
 			HasError: false,
 		}, {
 			Name:     "right number should pass",
-			Data:     Either.Right(1.32345),
+			Data:     either.Right(1.32345),
 			HasError: false,
 		}, {
 			Name: "right struct should pass",
-			Data: Either.Right(
+			Data: either.Right(
 				struct {
 					Name string
 					Age  uint16
@@ -38,11 +38,11 @@ func CreateEitherDataTT() []EitherDataTT {
 			HasError: false,
 		}, {
 			Name:     "some primitive slice should pass",
-			Data:     Either.Right([]uint8{1, 2, 3, 4, 5}),
+			Data:     either.Right([]uint8{1, 2, 3, 4, 5}),
 			HasError: false,
 		}, {
 			Name: "right slice of struct should pass",
-			Data: Either.Right([]struct {
+			Data: either.Right([]struct {
 				name string
 				age  uint8
 			}{
@@ -53,11 +53,11 @@ func CreateEitherDataTT() []EitherDataTT {
 			HasError: false,
 		}, {
 			Name:     "right Empty should pass",
-			Data:     Either.Right("test none empty"),
+			Data:     either.Right("test none empty"),
 			HasError: false,
 		}, {
 			Name:     "left None empty should pass",
-			Data:     Either.Left(errors.New("some error")),
+			Data:     either.Left(errors.New("some error")),
 			HasError: false,
 		},
 	}

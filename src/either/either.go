@@ -1,4 +1,4 @@
-package Either
+package either
 
 import (
 	"github.com/sghaida/fp/src/errors"
@@ -11,7 +11,7 @@ type Type struct {
 	right interface{}
 }
 
-// Either factory fpr creating new EitherType
+// either factory fpr creating new EitherType
 func Either() Type {
 	return Type{}
 }
@@ -49,7 +49,7 @@ func (e *Type) IsRight() bool {
 	return false
 }
 
-// Left helper function for the base type assuming that the Either (Type) is empty
+// Left helper function for the base type assuming that the either (Type) is empty
 // if left is being already set or right is being set it returns empty EitherType and error
 // if left is set to nil it will panic
 func (e *Type) Left(err error) (Type, error) {
@@ -62,7 +62,7 @@ func (e *Type) Left(err error) (Type, error) {
 	return Type{}, errors.IsRightError
 }
 
-// Right helper function for the base type assuming that the Either (Type) is empty
+// Right helper function for the base type assuming that the either (Type) is empty
 // if left is being already set or right is being set it returns empty EitherType and error
 func (e *Type) Right(data interface{}) (Type, error) {
 	if utils.IsNilOrEmpty(e.right) && e.left == nil {

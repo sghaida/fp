@@ -16,7 +16,7 @@ func Lift(data interface{}) Type {
 // Map
 // panic if d type and f input type is not the same type
 func (t *Type) Apply(f interface{}) Type {
-	// just in case the content of the d is string,
+	// just in case the content of the d is slice of strings,
 	if s, ok := t.d.([]string); ok {
 		return t.applyString(s, f)
 	}
@@ -36,7 +36,6 @@ func (t *Type) Apply(f interface{}) Type {
 	default:
 		return t.applyGeneric(fv)
 	}
-
 }
 
 // Get return the encapsulated type value

@@ -1,4 +1,4 @@
-package Either_test
+package either_test
 
 import (
 	"errors"
@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sghaida/fp/src/Either"
+	"github.com/sghaida/fp/src/either"
 	td "github.com/sghaida/fp/src/testdata"
 )
 
@@ -17,9 +17,9 @@ func TestMain(m *testing.M) {
 }
 func Test_EitherCreation(t *testing.T) {
 	t.Parallel()
-	either := Either.Either()
-	t.Run("empty Either should fail on get", func(t *testing.T) {
-		_, err := either.Get()
+	e := either.Either()
+	t.Run("empty either should fail on get", func(t *testing.T) {
+		_, err := e.Get()
 		if err == nil {
 			t.Errorf("expected error, got nil")
 		}
@@ -27,17 +27,17 @@ func Test_EitherCreation(t *testing.T) {
 
 	t.Run("nil left should panic", func(t *testing.T) {
 		nilLeft1 := func() {
-			_, _ = either.Left(nil)
+			_, _ = e.Left(nil)
 		}
 		assert.Panics(t, nilLeft1, "this should panic")
 		nilLeft2 := func() {
-			Either.Left(nil)
+			either.Left(nil)
 		}
 		assert.Panics(t, nilLeft2, "this should panic")
 	})
 
 	t.Run("set left after setting right should fail", func(t *testing.T) {
-		right, err := either.Right("some data")
+		right, err := e.Right("some data")
 		if err == nil {
 			// this should fail
 			_, err := right.Left(errors.New("some error"))
@@ -48,7 +48,7 @@ func Test_EitherCreation(t *testing.T) {
 	})
 
 	t.Run("set right after setting left should fail", func(t *testing.T) {
-		right, err := either.Left(errors.New("some error"))
+		right, err := e.Left(errors.New("some error"))
 		if err == nil {
 			// this should fail
 			_, err := right.Right("some data")
@@ -58,8 +58,8 @@ func Test_EitherCreation(t *testing.T) {
 		}
 	})
 
-	t.Run("set right using Either Factory should succeed", func(t *testing.T) {
-		left := Either.Left(errors.New("some error"))
+	t.Run("set right using either Factory should succeed", func(t *testing.T) {
+		left, _ := e.Left(errors.New("some error"))
 		_, err := left.Get()
 		if err == nil || err.Error() != "some error" {
 			t.Errorf("expect setting left, got %v", err)
