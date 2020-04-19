@@ -1,7 +1,7 @@
 package helpers_testData
 
 import (
-	"github.com/sghaida/fp/src/Monads/options"
+	"github.com/sghaida/fp/src/options"
 )
 
 type OptionsDataTT struct {

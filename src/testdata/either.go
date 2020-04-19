@@ -3,7 +3,7 @@ package helpers_testData
 import (
 	"errors"
 
-	"github.com/sghaida/fp/src/Monads/Either"
+	"github.com/sghaida/fp/src/Either"
 )
 
 type EitherDataTT struct {

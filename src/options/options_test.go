@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/sghaida/fp/src/Monads/options"
+	"github.com/sghaida/fp/src/options"
 	td "github.com/sghaida/fp/src/testdata"
 )
 

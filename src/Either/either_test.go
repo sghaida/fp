@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sghaida/fp/src/Monads/Either"
+	"github.com/sghaida/fp/src/Either"
 	td "github.com/sghaida/fp/src/testdata"
 )
 

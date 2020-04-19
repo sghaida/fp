@@ -1,7 +1,7 @@
 package Either
 
 import (
-	"github.com/sghaida/fp/src/Monads"
+	"github.com/sghaida/fp/src"
 	"github.com/sghaida/fp/src/utils"
 )
 
@@ -59,7 +59,7 @@ func (e *Type) Left(err error) (Type, error) {
 	if utils.IsNilOrEmpty(e.right) && e.left == nil {
 		return Type{left: err}, nil
 	}
-	return Type{}, Monads.IsRightError
+	return Type{}, main.IsRightError
 }
 
 // Right helper function for the base type assuming that the Either (Type) is empty
@@ -68,7 +68,7 @@ func (e *Type) Right(data interface{}) (Type, error) {
 	if utils.IsNilOrEmpty(e.right) && e.left == nil {
 		return Type{right: data}, nil
 	}
-	return Type{}, Monads.IsLeftError
+	return Type{}, main.IsLeftError
 }
 
 // Get extracts the value from right or and if fails return error
@@ -80,7 +80,7 @@ func (e *Type) Get() (interface{}, error) {
 		return nil, e.left
 	}
 	if e.right == nil && e.left == nil {
-		return nil, Monads.IsEmptyError
+		return nil, main.IsEmptyError
 	}
 	return e.right, nil
 }

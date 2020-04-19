@@ -1,4 +1,4 @@
-package Monads
+package main
 
 type EitherError string
 
