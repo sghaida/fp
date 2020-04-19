@@ -5,7 +5,7 @@
 
 this is my experiment to bridge the gap between Functional Programing languages (FP) and Go as it seems a good candidate for FP at the first glance so lets see how far this goes
 
-## build
+## Helpers commands
 1. download the dependencies
     >make init
     
@@ -17,3 +17,10 @@ this is my experiment to bridge the gap between Functional Programing languages 
                                    
 4. run test coverage and generate coverage report in html page
     >make coverage
+
+## Usage
+ some basic HOWTO regarding the following functionality
+### Options
+you can check [Options Test Data](./src/testdata/options.go) and [Options Test](./src/Monads/options/options_test.go)
+### Either
+you can check [Either Test Data](./src/testdata/either.go) and [Either Test](./src/Monads/Either/either_test.go)
