@@ -1,28 +1,28 @@
 package helpers_testData
 
 import (
-	"github.com/sghaida/fp/src/Monads"
+	"github.com/sghaida/fp/src/Monads/options"
 )
 
-type TTOptionsData struct {
+type OptionsDataTT struct {
 	Name    string
-	Data    Monads.Optional
+	Data    options.Optional
 	IsEmpty bool
 }
 
-func CreateTTOptionsData() []TTOptionsData {
-	return []TTOptionsData{
+func CreateOptionsDataTT() []OptionsDataTT {
+	return []OptionsDataTT{
 		{
 			Name:    "some string",
-			Data:    Monads.Option("this is not empty"),
+			Data:    options.Option("this is not empty"),
 			IsEmpty: false,
 		}, {
 			Name:    "some number",
-			Data:    Monads.Option(1.32345),
+			Data:    options.Option(1.32345),
 			IsEmpty: false,
 		}, {
 			Name: "some struct",
-			Data: Monads.Option(
+			Data: options.Option(
 				struct {
 					Name string
 					Age  uint16
@@ -30,11 +30,11 @@ func CreateTTOptionsData() []TTOptionsData {
 			IsEmpty: false,
 		}, {
 			Name:    "some primitive slice",
-			Data:    Monads.Option([]uint8{1, 2, 3, 4, 5}),
+			Data:    options.Option([]uint8{1, 2, 3, 4, 5}),
 			IsEmpty: false,
 		}, {
 			Name: "some slice of struct",
-			Data: Monads.Option([]struct {
+			Data: options.Option([]struct {
 				name string
 				age  uint8
 			}{
@@ -45,11 +45,11 @@ func CreateTTOptionsData() []TTOptionsData {
 			IsEmpty: false,
 		}, {
 			Name:    "None Empty",
-			Data:    Monads.Option("test none empty"),
+			Data:    options.Option("test none empty"),
 			IsEmpty: false,
 		}, {
 			Name:    "empty",
-			Data:    Monads.Option(nil),
+			Data:    options.Option(nil),
 			IsEmpty: true,
 		},
 	}
