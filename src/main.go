@@ -18,8 +18,8 @@ func main() {
 	// check map function for strings
 	lst := []string{"a", "b", "c"}
 	liftedStrs := apply.Lift(lst)
-	cap := func(str string) string { return strings.ToUpper(str) }
-	res := liftedStrs.Apply(cap)
+	toCap := func(str string) string { return strings.ToUpper(str) }
+	res := liftedStrs.Apply(toCap)
 	fmt.Println(lst)
 	fmt.Println(res.Get())
 	// map to different type
