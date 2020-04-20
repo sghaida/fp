@@ -66,7 +66,7 @@ func (t *Type) applyGeneric(fv reflect.Value) Type {
 func (t *Type) applySlice(fv reflect.Value) Type {
 	// create empty d based on the original d
 	origSlice := reflect.ValueOf(t.d)
-	// check if d is a function to start with
+	// get the returned type of the function to be able to build a slice of the same type
 	fType := fv.Type()
 	outV := fType.Out(0)
 	// make new slice based on the output of the map function
