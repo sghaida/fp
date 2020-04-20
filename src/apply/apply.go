@@ -15,7 +15,7 @@ func Lift(data interface{}) Type {
 
 // Map
 // panic if d type and f input type is not the same type
-func (t *Type) Apply(f interface{}) Type {
+func (t Type) Apply(f interface{}) Type {
 	// just in case the content of the d is slice of strings,
 	if s, ok := t.d.([]string); ok {
 		return t.applyStringSlice(s, f)
@@ -39,12 +39,12 @@ func (t *Type) Apply(f interface{}) Type {
 }
 
 // Get return the encapsulated type value
-func (t *Type) Get() interface{} {
+func (t Type) Get() interface{} {
 	return t.d
 }
 
 // applyStringSlice deals with the map for strings
-func (t *Type) applyStringSlice(s []string, f interface{}) Type {
+func (t Type) applyStringSlice(s []string, f interface{}) Type {
 	if fn, ok := f.(func(string) string); ok {
 		newSlice := make([]string, len(s))
 		for i, st := range s {
@@ -56,14 +56,14 @@ func (t *Type) applyStringSlice(s []string, f interface{}) Type {
 }
 
 // applyGeneric applies a function for all types other than slice and string
-func (t *Type) applyGeneric(fv reflect.Value) Type {
+func (t Type) applyGeneric(fv reflect.Value) Type {
 	in := []reflect.Value{reflect.ValueOf(t.d)}
 	out := fv.Call(in[:])[0].Interface()
 	return Type{d: out}
 }
 
 // applySlice encapsulates the logic for the map func for all slices
-func (t *Type) applySlice(fv reflect.Value) Type {
+func (t Type) applySlice(fv reflect.Value) Type {
 	// create empty d based on the original d
 	origSlice := reflect.ValueOf(t.d)
 	// get the returned type of the function to be able to build a slice of the same type
@@ -90,7 +90,7 @@ func (t *Type) applySlice(fv reflect.Value) Type {
 
 // getInnerType gets the inner type of t
 // this could panic in the cae of none slice and based on that a recover will return for none slice
-func (t *Type) getInnerType() reflect.Kind {
+func (t Type) getInnerType() reflect.Kind {
 	defer func() reflect.Kind {
 		if err := recover(); err != nil {
 		}
