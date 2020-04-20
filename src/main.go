@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
+
+	"github.com/bxcodec/faker/v3"
 
 	"github.com/sghaida/fp/src/apply"
 )
@@ -41,5 +44,21 @@ func main() {
 	}
 	res2 := name.Apply(checkName)
 	fmt.Println(res2.Get())
+
+	number := apply.Lift(1)
+	multiply := func(s int) float64 { return float64(s) * 10.3 }
+	m := number.Apply(multiply)
+	fmt.Println(m.Get().(float64))
+
+	var numbersLst []int
+	_ = faker.SetRandomMapAndSliceSize(1000000)
+	_ = faker.FakeData(&numbersLst)
+
+	nLstLifted := apply.Lift(numbersLst)
+	start := time.Now()
+	output := nLstLifted.Apply(multiply)
+	elapsed := time.Since(start)
+	fmt.Println(elapsed)
+	fmt.Println(output.Get().([]float64)[100])
 
 }

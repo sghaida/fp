@@ -70,7 +70,7 @@ func (t *Type) applySlice(fv reflect.Value) Type {
 	fType := fv.Type()
 	outV := fType.Out(0)
 	// make new slice based on the output of the map function
-	s := reflect.MakeSlice(reflect.SliceOf(outV), origSlice.Len(), origSlice.Len())
+	s := reflect.MakeSlice(reflect.SliceOf(outV), 0, 0)
 	// newSlice := make([]interface{}, origSlice.Len())
 	// TODO  compare performance between S and newSlice in terms of creation of the slice and appending to it
 	//  taking into consideration that S is better from newSlice as it returns interface{}
