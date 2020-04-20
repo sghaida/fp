@@ -18,7 +18,7 @@ func Lift(data interface{}) Type {
 func (t *Type) Apply(f interface{}) Type {
 	// just in case the content of the d is slice of strings,
 	if s, ok := t.d.([]string); ok {
-		return t.applyString(s, f)
+		return t.applyStringSlice(s, f)
 	}
 	// make sure that this is a function
 	fv := reflect.ValueOf(f)
@@ -43,8 +43,8 @@ func (t *Type) Get() interface{} {
 	return t.d
 }
 
-// applyString deals with the map for strings
-func (t *Type) applyString(s []string, f interface{}) Type {
+// applyStringSlice deals with the map for strings
+func (t *Type) applyStringSlice(s []string, f interface{}) Type {
 	if fn, ok := f.(func(string) string); ok {
 		newSlice := make([]string, len(s))
 		for i, st := range s {
@@ -66,15 +66,26 @@ func (t *Type) applyGeneric(fv reflect.Value) Type {
 func (t *Type) applySlice(fv reflect.Value) Type {
 	// create empty d based on the original d
 	origSlice := reflect.ValueOf(t.d)
-	newSlice := make([]interface{}, origSlice.Len())
+	// check if d is a function to start with
+	fType := fv.Type()
+	outV := fType.Out(0)
+	// make new slice based on the output of the map function
+	s := reflect.MakeSlice(reflect.SliceOf(outV), origSlice.Len(), origSlice.Len())
+	// newSlice := make([]interface{}, origSlice.Len())
+	// TODO  compare performance between S and newSlice in terms of creation of the slice and appending to it
+	//  taking into consideration that S is better from newSlice as it returns interface{}
+	//  that can be casted directly to specific type while newSlice returns []interface{} which doesnt align
+	//  for direct conversion
 	// apply the method then append the item to the new d
 	var in [1]reflect.Value
 	for i := 0; i < origSlice.Len(); i++ {
 		in[0] = origSlice.Index(i)
-		newSlice[i] = fv.Call(in[:])[0].Interface()
+		// newSlice[i] = fv.Call(in[:])[0].Interface()
+		s = reflect.Append(s, fv.Call(in[:])[0])
 	}
+	return Type{d: s.Interface()}
 	// return new mapped results
-	return Type{d: newSlice}
+	// return Type{d: newSlice}
 }
 
 // getInnerType gets the inner type of t

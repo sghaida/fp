@@ -20,12 +20,17 @@ func main() {
 	liftedStrs := apply.Lift(lst)
 	toCap := func(str string) string { return strings.ToUpper(str) }
 	res := liftedStrs.Apply(toCap)
-	fmt.Println(lst)
-	fmt.Println(res.Get())
+	results := res.Get().([]string)
+	fmt.Println(results)
+
 	// map to different type
 	makeFloat := func(in int) float64 { return float64(in) * 1.5 }
 	res1 := lifted.Apply(makeFloat)
-	fmt.Println(res1)
+	// res3 := res1.Get().([]float64)
+	// fmt.Println(res3)
+	for r := range res1.Get().([]float64) {
+		fmt.Println(r)
+	}
 
 	name := apply.Lift("saddam")
 	checkName := func(s string) bool {
