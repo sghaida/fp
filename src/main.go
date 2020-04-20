@@ -51,7 +51,7 @@ func main() {
 	fmt.Println(m.Get().(float64))
 
 	var numbersLst []int
-	_ = faker.SetRandomMapAndSliceSize(1000000)
+	_ = faker.SetRandomMapAndSliceSize(1000)
 	_ = faker.FakeData(&numbersLst)
 
 	nLstLifted := apply.Lift(numbersLst)
